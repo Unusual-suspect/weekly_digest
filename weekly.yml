@@ -1,0 +1,29 @@
+name: Weekly Regulatory Intelligence (Free)
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Every Monday 07:00 CET (06:00 UTC)
+  workflow_dispatch:        # Manual trigger anytime
+
+jobs:
+  reg-intel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Run RSS regulatory agent
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          EMAIL_FROM:       ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO:         ${{ secrets.EMAIL_TO }}
+          LOOKBACK_DAYS:    "7"
+        run: python agent.py
