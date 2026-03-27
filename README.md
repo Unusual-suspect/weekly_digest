@@ -1,4 +1,4 @@
-# Regulatory Intelligence Agent — Free RSS Edition
+# Regulatory Intelligence Agent
 
 Weekly EU payments & agentic commerce regulatory briefing.
 **Zero cost. No AI APIs. No paid services.**
